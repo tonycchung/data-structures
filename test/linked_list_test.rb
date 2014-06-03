@@ -82,6 +82,6 @@ class TestLinkedLists < MiniTest::Unit::TestCase
     @linked_list.insert(@node_symbol)
     @linked_list.insert(@node_int)
 
-    assert_equal @linked_list.to_s, "'first node', 'second node', 'third node', :node_symbol, 5"
+    assert_equal @linked_list.to_s, "first node, second node, third node, node_symbol, 5"
   end
 end

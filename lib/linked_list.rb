@@ -60,7 +60,7 @@ class LinkedList
       result << current.node_id
       current = current.next_node
     end
-    puts result.map(&:inspect).join(', ')
+    result.join(", ")
   end
 end
 
