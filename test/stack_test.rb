@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require 'stack'
 
-class TestStack < MiniTest::Unit::TestCase
+class TestStack < MiniTest::Test
 
   def setup
     # Create some data
