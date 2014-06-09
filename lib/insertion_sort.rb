@@ -1,3 +1,5 @@
+require 'benchmark'
+
 def insertion_sort(list)
   (1..list.length-1).each do |i|
     j = i
@@ -11,5 +13,6 @@ def insertion_sort(list)
   return list
 end
 
-# list = [2, 4, 3, 8, 6, 7, 5, 1]
-# insertion_sort(list)
+def benchmark_insertion_sort(list)
+  puts Benchmark.measure { insertion_sort(list) }
+end
