@@ -1,18 +1,18 @@
 require 'benchmark'
 
-def insertion_sort(list)
-  (1..list.length-1).each do |i|
+def insertion_sort(array)
+  (1...array.length).each do |i|
     j = i
-    while j > 0 && list[j-1] > list[j]
-      current_holder = list[j]
-      list[j] = list[j-1]
-      list[j-1] = current_holder
+    while j > 0 && array[j-1] > array[j]
+      current_holder = array[j]
+      array[j] = array[j-1]
+      array[j-1] = current_holder
       j -= 1
     end
   end
-  return list
+  return array
 end
 
-def benchmark_insertion_sort(list)
-  puts Benchmark.measure { insertion_sort(list) }
+def benchmark_insertion_sort(array)
+  puts Benchmark.measure { insertion_sort(array) }
 end
