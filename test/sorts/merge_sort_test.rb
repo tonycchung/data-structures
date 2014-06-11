@@ -14,7 +14,7 @@ class TestMergeSort < MiniTest::Test
 end
 
 def test_merge_sort_benchmark
-  @rand_list = (0..1000).map{ rand(1000) }
+  @rand_list = (0..10000).map{ rand(10000) }
   @sorted_list = @rand_list.sort
   @reverse_list = @rand_list.sort.reverse
 
