@@ -1,6 +1,7 @@
 require 'minitest/autorun'
 require 'quick_sort'
 require 'benchmark'
+require_relative 'sort_test_helper'
 
 class TestQuickSort < MiniTest::Test
 
@@ -14,9 +15,8 @@ class TestQuickSort < MiniTest::Test
 end
 
 def test_quick_sort_benchmark
-  @rand_list = (0..10000).map{ rand(10000) }
-  @sorted_list = @rand_list.sort
-  @reverse_list = @rand_list.sort.reverse
+
+  make_rand_list
 
   puts "Quick Sort Benchmarks"
   puts "Pre-sorted:"
@@ -26,7 +26,7 @@ def test_quick_sort_benchmark
   puts Benchmark.measure { quick_sort(@reverse_list) }
 
   puts "Randomly sorted:"
-  puts Benchmark.measure { merge_sort(@rand_list) }
+  puts Benchmark.measure { quick_sort(@rand_list) }
   puts
 end
 

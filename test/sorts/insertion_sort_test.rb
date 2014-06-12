@@ -1,6 +1,7 @@
 require 'minitest/autorun'
 require 'insertion_sort'
 require 'benchmark'
+require_relative 'sort_test_helper'
 
 class TestInsertionSort < MiniTest::Test
 
@@ -14,9 +15,8 @@ class TestInsertionSort < MiniTest::Test
 end
 
 def test_insertion_sort_benchmark
-  @rand_list = (0..1000).map{ rand(1000) }
-  @sorted_list = @rand_list.sort
-  @reverse_list = @rand_list.sort.reverse
+
+  make_rand_list
 
   puts "Insertion Sort Benchmarks"
   puts "Pre-sorted:"
@@ -26,7 +26,7 @@ def test_insertion_sort_benchmark
   puts Benchmark.measure { insertion_sort(@reverse_list) }
 
   puts "Randomly sorted:"
-  puts Benchmark.measure { merge_sort(@rand_list) }
+  puts Benchmark.measure { insertion_sort(@rand_list) }
   puts
 end
 

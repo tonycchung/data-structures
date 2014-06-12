@@ -2,7 +2,7 @@ require 'pry'
 
 def quick_sort(array, left = 0, right = array.size - 1)
   if left < right
-    pivot_index = rand(left..right)
+    pivot_index = (left + right) / 2
     new_pivot_index = partition(array, left, right, pivot_index)
     quick_sort(array, left, new_pivot_index - 1)
     quick_sort(array, new_pivot_index + 1, right)
