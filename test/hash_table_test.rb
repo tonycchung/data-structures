@@ -21,12 +21,12 @@ class TestHashTable < MiniTest::Test
     assert_equal @hash_table.get("e"), 5
   end
 
-  # def test_hash_table_large
-  #   @large_hash_table = HashTable.new(100000)
-  #   @file = File.open("/usr/share/dict/words")
-  #   @file.each_line do |word|
-  #     @large_hash_table.set(word, word.reverse)
-  #     assert_equal @large_hash_table.get(word), word.reverse
-  #   end
-  # end
+  def test_hash_table_large
+    @large_hash_table = HashTable.new(100000)
+    @file = File.open("/usr/share/dict/words")
+    @file.each_line do |word|
+      @large_hash_table.set(word, word.reverse)
+      assert_equal @large_hash_table.get(word), word.reverse
+    end
+  end
 end
