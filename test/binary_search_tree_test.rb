@@ -52,9 +52,3 @@ class TestBinarySearchTree < MiniTest::Test
     assert_equal @tree2.balance, -1
   end
 end
-
-def test_worst_case_contains
-
-end
-
-Minitest.after_run { test_worst_case_contains }
