@@ -10,9 +10,12 @@ class DoublyLinkedList
     if @head == nil
       @head = node
     else
-      node.prev_node = @head
-      @head.next_node = node
-      @head = node
+      current = @head
+      while current.next_node != nil
+        current = current.next_node
+      end
+      current.next_node = node
+      node.prev_node = current
     end
     @size += 1
   end
@@ -21,18 +24,17 @@ class DoublyLinkedList
     @size
   end
 
-      def search(val)
-        current = @head
-        while current != nil
-          if current.node_id == val
-            return current
-            break
-          else
-            current = current.prev_node
-          end
-        end
-        return nil
+  def search(val)
+    current = @head
+    while current != nil
+      if current.node_id == val
+        return current
+      else
+        current = current.next_node
       end
+    end
+    return nil
+  end
 
   def remove(node)
     # If removing node at tail
@@ -113,7 +115,7 @@ linked_list.add(node2)
 linked_list.add(node2)
 
 puts linked_list.search(node1.node_id)
-puts linked_list.inspect
+
 # linked_list.deduplicate_slow
 # linked_list.deduplicate_with_hash
 # puts linked_list.inspect
@@ -127,8 +129,3 @@ puts linked_list.inspect
 
 # linked_list.deduplicate_with_hash
 # puts linked_list.inspect
-
-    linked_list = DoublyLinkedList.new
-    node1 = Node.new '1'
-    linked_list.add(node1)
-    puts linked_list.search(node1.node_id)
