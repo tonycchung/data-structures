@@ -21,18 +21,18 @@ class DoublyLinkedList
     @size
   end
 
-      def search(val)
-        current = @head
-        while current != nil
-          if current.node_id == val
-            return current
-            break
-          else
-            current = current.prev_node
-          end
-        end
-        return nil
+  def search(val)
+    current = @head
+    while current != nil
+      if current.node_id == val
+        return current
+        break
+      else
+        current = current.prev_node
       end
+    end
+    return nil
+  end
 
   def remove(node)
     # If removing node at tail
