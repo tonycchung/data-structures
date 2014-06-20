@@ -1,100 +1,4 @@
-class DoublyLinkedList
-  attr_accessor :head, :size
-
-  def initialize
-    @size = 0
-    @head = nil
-  end
-
-  def add(node)
-    if @head == nil
-      @head = node
-    else
-      current = @head
-      while current.next_node != nil
-        current = current.next_node
-      end
-      current.next_node = node
-      node.prev_node = current
-    end
-    @size += 1
-  end
-
-  def size
-    @size
-  end
-
-  def search(val)
-    current = @head
-    while current != nil
-      if current.node_id == val
-        return current
-      else
-        current = current.next_node
-      end
-    end
-    return nil
-  end
-
-  def remove(node)
-    # If removing node at tail
-    if node.prev_node == nil
-      node.next_node.prev_node = nil
-    else
-      node.prev_node.next_node = node.next_node
-    end
-    # If removing node at head
-    if node.next_node == nil
-      node.prev_node.next_node == nil
-    else
-      node.next_node.prev_node = node.prev_node
-    end
-    @size -= 1
-  end
-
-  def to_s
-    current = @head
-    result = []
-    while current != nil
-      result << current.node_id
-      current = current.prev_node
-    end
-    result.join(", ")
-  end
-
-  def deduplicate_with_hash
-    hash = {}
-    current = @head
-    while current != nil
-      # hash[current.node_id] ? remove(current) : hash[current.node_id] = true
-      if hash[current.node_id] == true
-        remove(current)
-      else
-        hash[current.node_id] = true
-      end
-      current = current.prev_node
-    end
-  end
-
-  def deduplicate_slow
-    pointer1 = @head
-    while pointer1 != nil
-      puts "pointer1" + pointer1.node_id
-      pointer2 = pointer1.prev_node
-      while pointer2 != nil
-        puts "pointer2" + pointer2.node_id
-        if pointer1 == pointer2
-          remove(pointer2)
-        end
-        pointer2 = pointer2.prev_node
-      end
-      pointer1 = pointer1.prev_node
-    end
-    self
-  end
-end
-
-class DNode
+class Node
   attr_accessor :node_id, :next_node, :prev_node
 
   def initialize(node_id)
@@ -104,28 +8,73 @@ class DNode
   end
 end
 
-linked_list = DoublyLinkedList.new
+class DoublyLinkedList
+  attr_accessor :head, :size
 
-node1 = DNode.new '1'
-node2 = DNode.new '2'
-node3 = DNode.new '3'
+  def initialize
+    @size = 0
+    @head = nil
+  end
 
-linked_list.add(node1)
-linked_list.add(node2)
-linked_list.add(node2)
+  def size
+    @size
+  end
 
-puts linked_list.search(node1.node_id)
+  def add(val)
+    node = Node.new(val)
+    if @head == nil
+      @head = node
+      @tail = node
+    else
+      node.prev_node = @tail
+      @tail.next_node = node
+      @tail = node
+    end
+    @size += 1
+  end
 
-# linked_list.deduplicate_slow
-# linked_list.deduplicate_with_hash
-# puts linked_list.inspect
-# hash = {}
-# hash["#{node1.node_id}"] = node1
-# if hash["#{node1.node_id}"] == node1
-# linked_list.remove(node1)
-# end
-# puts hash[node1]
-# puts hash.inspect
+  def search(val)
+    current = @head
+    while current != nil
+      if current.node_id == val
+        return current
+      else
+        current = current.prev_node
+      end
+    end
+    return nil
+  end
 
-# linked_list.deduplicate_with_hash
-# puts linked_list.inspect
+  def to_s
+    current = @head
+    result = []
+    while current != nil
+      result << current.node_id
+      current = current.next_node
+    end
+    result.join(", ")
+  end
+
+  def deduplicate_with_array
+    list = DoublyLinkedList.new
+    self.to_s.split(", ").map {|n| n.to_i}.uniq.each { |value| list.add(value) }
+    list
+  end
+
+  def deduplicate_slow
+    pointer1 = @head
+    while pointer1 != nil
+      pointer2 = pointer1.next_node
+      while pointer2 != nil
+        if pointer2.node_id == pointer1.node_id
+          pointer2.prev_node.next_node = pointer2.next_node
+          pointer2.next_node.prev_node = pointer2.prev_node if pointer2.next_node != nil
+        end
+        pointer2 = pointer2.next_node
+      end
+      pointer1 = pointer1.next_node
+    end
+    self
+  end
+
+end

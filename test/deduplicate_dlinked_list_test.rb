@@ -5,50 +5,43 @@ class TestDoublyLinkedLists < MiniTest::Test
 
   def setup
     @linked_list = DoublyLinkedList.new
-    200.times do
-      @linked_list.add(Node.new(rand(100)))
-    end
+
+    @linked_list.add('1')
+    @linked_list.add('2')
+    @linked_list.add('3')
   end
 
   def test_add_method
-    assert_equal @linked_list.size, 200
+    assert_equal @linked_list.size, 3
   end
 
-  def test_remove_method
-    test_node = Node.new(1)
-    @linked_list.add(test_node)
-    assert_equal @linked_list.size, 201
-
-    @linked_list.remove(test_node)
-    assert_equal @linked_list.size, 200
+  def test_to_s_method
+    assert_equal @linked_list.to_s, "1, 2, 3"
   end
 
-  def to_s_method
+  def test_deduplicate_with_array_method
     @linked_list = DoublyLinkedList.new
-    @node1 = Node.new 'first node'
-    @node2 = Node.new 'second node'
-    @node3 = Node.new 'third node'
 
-    @linked_list.add(@node1)
-    @linked_list.add(@node2)
-    @linked_list.add(@node3)
+    @linked_list.add('1')
+    @linked_list.add('1')
+    @linked_list.add('2')
+    @linked_list.add('2')
+    @linked_list.add('3')
+    @linked_list.add('3')
 
-    assert_equal @linked_list.to_s, "first node, second node, third node"
+    assert_equal @linked_list.deduplicate_with_array.to_s, "1, 2, 3"
   end
 
-  def test_deduplicate_method
-    @node1 = Node.new '1'
-    @node2 = Node.new '2'
-    @node3 = Node.new '3'
+  def test_deduplicate_slow_method
+    @linked_list = DoublyLinkedList.new
 
-    @linked_list.add(@node1)
-    @linked_list.add(@node1)
-    @linked_list.add(@node2)
-    @linked_list.add(@node2)
-    @linked_list.add(@node2)
-    @linked_list.add(@node3)
-    @linked_list.add(@node3)
+    @linked_list.add('1')
+    @linked_list.add('1')
+    @linked_list.add('2')
+    @linked_list.add('2')
+    @linked_list.add('3')
+    @linked_list.add('3')
 
-    assert_equal @linked_list.deduplicate, "1, 2, 3"
+    assert_equal @linked_list.deduplicate_slow.to_s, "1, 2, 3"
   end
 end
