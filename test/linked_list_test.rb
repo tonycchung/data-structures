@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require 'linked_list'
 
-class TestLinkedLists < MiniTest::Unit::TestCase
+class TestLinkedLists < MiniTest::Test
 
   def setup
     # Create some nodes
