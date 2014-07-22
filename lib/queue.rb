@@ -43,7 +43,6 @@ class QueueItem
   end
 end
 
-
 queue = Queue.new
 item1 = QueueItem.new('item1')
 item2 = QueueItem.new('item2')
