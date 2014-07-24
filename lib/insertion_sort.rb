@@ -1,5 +1,3 @@
-require 'benchmark'
-
 def insertion_sort(array)
   (1...array.length).each do |i|
     j = i
@@ -11,8 +9,4 @@ def insertion_sort(array)
     end
   end
   return array
-end
-
-def benchmark_insertion_sort(array)
-  puts Benchmark.measure { insertion_sort(array) }
 end

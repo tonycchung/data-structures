@@ -13,16 +13,18 @@ class TestInsertionSort < MiniTest::Test
   end
 end
 
-def test_benchmark
+def test_insertion_sort_benchmark
   @int_list = (0..1000).map{ rand(1000) }
   @sorted_list = @int_list.sort
   @reverse_list = @int_list.sort.reverse
 
+  puts "Insertion Sort Benchmarks"
   puts "Best-case scenario - already sorted list"
-  benchmark_insertion_sort(@sorted_list)
+  puts Benchmark.measure { insertion_sort(@sorted_list) }
 
   puts "Worst-case scenario - reverse sorted list"
-  benchmark_insertion_sort(@reverse_list)
+  puts Benchmark.measure { insertion_sort(@reverse_list) }
+  puts
 end
 
-Minitest.after_run { test_benchmark }
+Minitest.after_run { test_insertion_sort_benchmark }
