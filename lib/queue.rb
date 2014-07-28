@@ -42,21 +42,3 @@ class QueueItem
     @prev_item = nil
   end
 end
-
-queue = Queue.new
-item1 = QueueItem.new('item1')
-item2 = QueueItem.new('item2')
-item3 = QueueItem.new('item3')
-
-queue.enqueue item1
-queue.enqueue item2
-queue.enqueue item3
-
-puts queue.size
-queue.dequeue
-puts queue.size
-queue.dequeue
-puts queue.size
-queue.dequeue
-puts queue.size
-
