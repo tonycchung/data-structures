@@ -1,3 +1,13 @@
+class Node
+  attr_accessor :node_id, :next_node, :prev_node
+
+  def initialize(node_id)
+    @node_id = node_id
+    @prev_node = nil
+    @next_node = nil
+  end
+end
+
 class DoublyLinkedList
   attr_accessor :head, :size
 
@@ -6,13 +16,19 @@ class DoublyLinkedList
     @head = nil
   end
 
-  def add(node)
+  def size
+    @size
+  end
+
+  def add(val)
+    node = Node.new(val)
     if @head == nil
       @head = node
+      @tail = node
     else
-      node.prev_node = @head
-      @head.next_node = node
-      @head = node
+      node.prev_node = @tail
+      @tail.next_node = node
+      @tail = node
     end
     @size += 1
   end
@@ -26,6 +42,9 @@ class DoublyLinkedList
     while current != nil
       if current.node_id == val
         return current
+      else
+        current = current.prev_node
+      end
         break
       else
         current = current.prev_node
@@ -47,7 +66,7 @@ class DoublyLinkedList
     else
       node.next_node.prev_node = node.prev_node
     end
-    @size -= 1
+    return nil
   end
 
   def to_s
@@ -55,80 +74,31 @@ class DoublyLinkedList
     result = []
     while current != nil
       result << current.node_id
-      current = current.prev_node
+      current = current.next_node
     end
     result.join(", ")
   end
 
-  def deduplicate_with_hash
-    hash = {}
-    current = @head
-    while current != nil
-      # hash[current.node_id] ? remove(current) : hash[current.node_id] = true
-      if hash[current.node_id] == true
-        remove(current)
-      else
-        hash[current.node_id] = true
-      end
-      current = current.prev_node
-    end
+  def deduplicate_with_array
+    list = DoublyLinkedList.new
+    self.to_s.split(", ").map {|n| n.to_i}.uniq.each { |value| list.add(value) }
+    list
   end
 
   def deduplicate_slow
     pointer1 = @head
     while pointer1 != nil
-      puts "pointer1" + pointer1.node_id
-      pointer2 = pointer1.prev_node
+      pointer2 = pointer1.next_node
       while pointer2 != nil
-        puts "pointer2" + pointer2.node_id
-        if pointer1 == pointer2
-          remove(pointer2)
+        if pointer2.node_id == pointer1.node_id
+          pointer2.prev_node.next_node = pointer2.next_node
+          pointer2.next_node.prev_node = pointer2.prev_node if pointer2.next_node != nil
         end
-        pointer2 = pointer2.prev_node
+        pointer2 = pointer2.next_node
       end
-      pointer1 = pointer1.prev_node
+      pointer1 = pointer1.next_node
     end
     self
   end
+
 end
-
-class DNode
-  attr_accessor :node_id, :next_node, :prev_node
-
-  def initialize(node_id)
-    @node_id = node_id
-    @prev_node = nil
-    @next_node = nil
-  end
-end
-
-linked_list = DoublyLinkedList.new
-
-node1 = DNode.new '1'
-node2 = DNode.new '2'
-node3 = DNode.new '3'
-
-linked_list.add(node1)
-linked_list.add(node2)
-linked_list.add(node2)
-
-puts linked_list.search(node1.node_id)
-puts linked_list.inspect
-# linked_list.deduplicate_slow
-# linked_list.deduplicate_with_hash
-# puts linked_list.inspect
-# hash = {}
-# hash["#{node1.node_id}"] = node1
-# if hash["#{node1.node_id}"] == node1
-# linked_list.remove(node1)
-# end
-# puts hash[node1]
-# puts hash.inspect
-
-# linked_list.deduplicate_with_hash
-# puts linked_list.inspect
-
-    linked_list = DoublyLinkedList.new
-    node1 = Node.new '1'
-    linked_list.add(node1)
-    puts linked_list.search(node1.node_id)
