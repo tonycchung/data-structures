@@ -33,6 +33,10 @@ class DoublyLinkedList
     @size += 1
   end
 
+  def size
+    @size
+  end
+
   def search(val)
     current = @head
     while current != nil
@@ -41,6 +45,26 @@ class DoublyLinkedList
       else
         current = current.prev_node
       end
+        break
+      else
+        current = current.prev_node
+      end
+    end
+    return nil
+  end
+
+  def remove(node)
+    # If removing node at tail
+    if node.prev_node == nil
+      node.next_node.prev_node = nil
+    else
+      node.prev_node.next_node = node.next_node
+    end
+    # If removing node at head
+    if node.next_node == nil
+      node.prev_node.next_node == nil
+    else
+      node.next_node.prev_node = node.prev_node
     end
     return nil
   end

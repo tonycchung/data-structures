@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 require 'minitest/autorun'
 require 'doubly_linked_list'
 
