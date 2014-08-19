@@ -46,11 +46,7 @@ class DoublyLinkedList
         current = current.prev_node
       end
         break
-      else
-        current = current.prev_node
-      end
     end
-    return nil
   end
 
   def remove(node)
